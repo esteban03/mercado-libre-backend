@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     }
 
     try {
-        const response = await axios.get(`https://api.mercadolibre.com/sites/MLA/search?q=${query}`);
+        const response = await axios.get(`https://api.mercadolibre.com/sites/MLA/search?q=${query}&limit=4`);
         const items = response.data.results.slice(0, 4).map(item => ({
             id: item.id,
             title: item.title,
