@@ -131,3 +131,29 @@ El backend implementa los siguientes endpoints:
 - `GET /api/items/:id`  
   Obtiene el detalle de un producto específico por su ID.
 
+
+## Decisiones Técnicas
+
+### Nota sobre las llamadas a servicios externos:
+
+En un entorno de desarrollo real, normalmente realizaría mocking de las llamadas a servicios externos, como las APIs de Mercado Libre, para evitar dependencias en servicios de terceros y asegurar pruebas más rápidas y confiables. Esto también me permitiría simular diferentes escenarios, como respuestas exitosas, errores de red, o respuestas no válidas.
+
+Sin embargo, para los efectos de esta prueba, he optado por no realizar mocking de las APIs de Mercado Libre, permitiendo que las solicitudes se realicen directamente a los servicios reales. De esta manera, se puede verificar que la integración con las APIs se ha realizado correctamente en un entorno real.
+
+### Gestión de Variables de Entorno
+
+He utilizado la librería dotenv para manejar las variables de entorno de manera segura. Esto me permite mantener la configuración sensible, como claves de API o configuraciones específicas de la base de datos, fuera del código fuente.
+
+
+### Pruebas
+
+Incluí una suite de pruebas utilizando Jest, enfocándome en las rutas. Estas pruebas aseguran que la lógica del backend funciona correctamente bajo diferentes escenarios. Si hubiera más tiempo, expandiría las pruebas para incluir más casos de borde y pruebas de integración.
+Las pruebas no incluyen mocks de las APIs de Mercado Libre para efectos de esta prueba específica. Sin embargo, en un entorno de producción, es recomendable implementar mocks para evitar dependencias externas durante la ejecución de las pruebas.
+
+### Rutas
+
+Centralicé el registro de todas las rutas de la aplicación en un único archivo, routes.js. Esta decisión permite un manejo más sencillo y organizado de las rutas, facilitando la gestión y modificación de las mismas sin tener que buscar en múltiples archivos. Además, esto mejora la legibilidad y mantiene el app.js limpio y enfocado en la configuración y arranque del servidor.
+
+### Servidor
+
+Por simplicidad, decidí administrar todo el servidor desde app.js, incluyendo la configuración de middlewares, registro de rutas, y arranque del servidor. Esta decisión permite mantener el flujo de configuración en un solo lugar, lo que simplifica la comprensión especialmente en el contexto de una prueba técnica.
